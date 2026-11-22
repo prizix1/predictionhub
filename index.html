@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Predict CS2 match results, earn points and climb the PredictionHub leaderboard. Free esports predictions for fun.">
+<title>PredictionHub — Predict. Score. Climb.</title>
+<style>
+:root{--bg:#090b12;--panel:#111522;--panel2:#171d2c;--line:#252d40;--text:#f4f6fb;--muted:#929bb0;--purple:#8b5cf6;--cyan:#36d6d0;--green:#39d98a;--red:#ff6b7d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#292052 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit;cursor:pointer}.wrap{max-width:1160px;margin:auto;padding:0 22px}
+header{height:76px;border-bottom:1px solid #ffffff12;background:#090b12dd;backdrop-filter:blur(14px);position:sticky;top:0;z-index:5}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:20px;letter-spacing:-.6px}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--purple),#4c9dff);display:grid;place-items:center;font-weight:900;box-shadow:0 6px 24px #8b5cf655}
+nav{display:flex;gap:25px;color:var(--muted);font-weight:650}nav a{color:inherit;text-decoration:none}nav a:hover{color:white}.navright{display:flex;align-items:center;gap:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:8px 13px;color:var(--muted);font-size:13px}.pill b{color:var(--cyan)}
+.hero{padding:58px 0 34px;display:grid;grid-template-columns:1.4fr .8fr;gap:30px;align-items:center}.eyebrow{color:var(--cyan);font-size:12px;font-weight:850;letter-spacing:1.8px;text-transform:uppercase}.hero h1{font-size:clamp(38px,6vw,66px);line-height:1.02;letter-spacing:-2.8px;margin:13px 0 16px}.gradient{background:linear-gradient(90deg,#a78bfa,#4de1d5);color:transparent;background-clip:text}.hero p{max-width:620px;color:var(--muted);font-size:17px;margin:0 0 24px}.btn{border:0;border-radius:11px;padding:12px 17px;font-weight:800;color:#fff;background:linear-gradient(100deg,#8154ed,#5b79f5);box-shadow:0 8px 26px #7657ec38}.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}.btn.secondary{background:#20283a;border:1px solid var(--line);box-shadow:none}.hero-card{background:linear-gradient(145deg,#1a2140,#111522 65%);border:1px solid #42406c;border-radius:20px;padding:22px;box-shadow:0 18px 70px #0005}.hero-card .big{font-size:38px;font-weight:900;letter-spacing:-1px}.hero-card p{font-size:13px;margin:4px 0 18px}.statrow{display:flex;gap:10px}.stat{flex:1;background:#ffffff08;border:1px solid #ffffff10;border-radius:12px;padding:12px}.stat strong{display:block;font-size:20px}.stat span{color:var(--muted);font-size:11px}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;margin:26px 0 15px}.sectionhead h2{font-size:23px;margin:0;letter-spacing:-.6px}.sectionhead p{color:var(--muted);margin:4px 0 0;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px;padding-bottom:60px}.matches{display:grid;gap:13px}.match{background:linear-gradient(135deg,var(--panel),#101522);border:1px solid var(--line);border-radius:16px;padding:17px}.matchtop{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:15px}.live{color:var(--cyan);font-weight:800}.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}.team{display:flex;align-items:center;gap:11px;font-weight:800}.team.right{justify-content:flex-end;text-align:right}.crest{width:42px;height:42px;border-radius:12px;background:#242c40;display:grid;place-items:center;font-weight:900;color:#c9c1ff}.right .crest{background:#18343a;color:#7df2e5}.vs{color:#68738c;font-size:12px;font-weight:900}.predictrow{display:flex;gap:9px;margin-top:16px}.pick{flex:1;border:1px solid var(--line);background:#171e2d;color:#cbd2e1;border-radius:10px;padding:10px;font-weight:750}.pick:hover{border-color:#8b5cf6;color:white}.pick.selected{border-color:var(--purple);background:#34265c;color:white;box-shadow:inset 0 0 0 1px #8b5cf6}.pick:disabled{opacity:.65;cursor:default}.result{font-size:12px;color:var(--muted);margin-top:10px;min-height:18px}
+.side{display:grid;gap:14px;align-content:start}.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.box h3{margin:0 0 12px;font-size:16px}.leader{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff0d}.leader:last-child{border:0}.rank{color:#a7b0c4;font-size:12px;width:17px}.avatar{width:30px;height:30px;border-radius:50%;background:#2b3450;display:grid;place-items:center;font-size:12px;font-weight:800}.lname{flex:1;font-weight:700;font-size:13px}.points{font-size:12px;color:var(--cyan);font-weight:800}.muted{color:var(--muted);font-size:12px}.premium{background:linear-gradient(145deg,#29204b,#171b30);border-color:#55418b}.premium p{color:#c3bfd8;font-size:13px}.premium ul{padding-left:18px;color:#d9d5eb;font-size:12px}.premium .btn{width:100%;margin-top:7px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:54px}.step{background:#111522;border:1px solid var(--line);border-radius:14px;padding:17px}.step b{display:block;margin:7px 0 3px}.step span{color:var(--muted);font-size:13px}.num{width:28px;height:28px;border-radius:9px;background:#2c2350;color:#c9baff;display:grid;place-items:center;font-weight:900}
+footer{border-top:1px solid var(--line);padding:24px 0 35px;color:var(--muted);font-size:12px}.foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.notice{background:#101a20;border:1px solid #1d4847;color:#a6d9d5;border-radius:12px;padding:12px 14px;font-size:12px;margin:18px 0 0}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222a3b;border:1px solid #56617b;padding:11px 16px;border-radius:12px;box-shadow:0 10px 40px #0008;display:none;z-index:10}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:42px}.layout{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.side .premium{grid-column:span 2}nav{display:none}}
+@media(max-width:560px){.wrap{padding:0 15px}.navright .pill{display:none}.hero h1{letter-spacing:-1.8px}.side{grid-template-columns:1fr}.side .premium{grid-column:auto}.how{grid-template-columns:1fr}.team{font-size:13px;gap:7px}.crest{width:34px;height:34px}.match{padding:13px}.predictrow{gap:6px}.pick{font-size:12px;padding:10px 4px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="brand"><div class="logo">P</div>Prediction<span class="gradient">Hub</span></div>
+  <nav><a href="#matches">Predictions</a><a href="#leaderboard">Leaderboard</a><a href="#how">How it works</a></nav>
+  <div class="navright"><div class="pill">Your points: <b id="points">0</b></div><button class="btn secondary" onclick="showInfo()">Sign in</button></div>
+</div></header>
+<main class="wrap">
+<section class="hero">
+  <div><div class="eyebrow">CS2 predictions · just for fun</div><h1>Predict. <span class="gradient">Score.</span><br>Climb the ranks.</h1>
+  <p>Call the winners, collect points and compete with the community. No deposits, no betting — just your CS2 knowledge.</p>
+  <button class="btn" onclick="document.querySelector('#matches').scrollIntoView({behavior:'smooth'})">Make your predictions&nbsp; →</button>
+  </div>
+  <div class="hero-card"><div class="eyebrow">Community challenge</div><div class="big">Can you go 5/5?</div><p>Pick the winning team in every featured match.</p><div class="statrow"><div class="stat"><strong>+100</strong><span>POINTS PER CORRECT PICK</span></div><div class="stat"><strong>0 kr</strong><span>FREE TO PLAY</span></div></div></div>
+</section>
+<div class="sectionhead" id="matches"><div><h2>Featured matches</h2><p>Demo fixtures — replace these with verified upcoming matches.</p></div><span class="pill">Season 01</span></div>
+<div class="layout">
+  <section class="matches" id="matchlist">
+    <article class="match" data-id="m1"><div class="matchtop"><span>DEMO FIXTURE · BO3</span><span class="live">● OPEN FOR PICKS</span></div><div class="teams"><div class="team"><div class="crest">N</div><span>NAVI</span></div><div class="vs">VS</div><div class="team right"><span>FaZe</span><div class="crest">F</div></div></div><div class="predictrow"><button class="pick" data-team="NAVI">NAVI wins</button><button class="pick" data-team="FaZe">FaZe wins</button></div><div class="result">Choose a winner to save your pick.</div></article>
+    <article class="match" data-id="m2"><div class="matchtop"><span>DEMO FIXTURE · BO3</span><span class="live">● OPEN FOR PICKS</span></div><div class="teams"><div class="team"><div class="crest">G</div><span>G2</span></div><div class="vs">VS</div><div class="team right"><span>Vitality</span><div class="crest">V</div></div></div><div class="predictrow"><button class="pick" data-team="G2">G2 wins</button><button class="pick" data-team="Vitality">Vitality wins</button></div><div class="result">Choose a winner to save your pick.</div></article>
+    <article class="match" data-id="m3"><div class="matchtop"><span>DEMO FIXTURE · BO3</span><span class="live">● OPEN FOR PICKS</span></div><div class="teams"><div class="team"><div class="crest">M</div><span>MOUZ</span></div><div class="vs">VS</div><div class="team right"><span>Spirit</span><div class="crest">S</div></div></div><div class="predictrow"><button class="pick" data-team="MOUZ">MOUZ wins</button><button class="pick" data-team="Spirit">Spirit wins</button></div><div class="result">Choose a winner to save your pick.</div></article>
+  </section>
+  <aside class="side">
+    <div class="box" id="leaderboard"><h3>🏆 Leaderboard</h3><div class="leader"><span class="rank">1</span><div class="avatar">PH</div><span class="lname">ProHunter</span><span class="points">1,850 pts</span></div><div class="leader"><span class="rank">2</span><div class="avatar">CS</div><span class="lname">ClutchKing</span><span class="points">1,620 pts</span></div><div class="leader"><span class="rank">3</span><div class="avatar">GG</div><span class="lname">GGMaster</span><span class="points">1,400 pts</span></div><p class="muted">Example leaderboard — real accounts and shared rankings require a backend.</p></div>
+    <div class="box premium"><div class="eyebrow">Coming later</div><h3>PredictionHub Pro</h3><p>For the most dedicated predictors.</p><ul><li>Advanced prediction stats</li><li>Personal accuracy history</li><li>Custom leagues with friends</li></ul><button class="btn" onclick="showInfo()">Premium coming soon</button></div>
+  </aside>
+</div>
+<section id="how"><div class="sectionhead"><div><h2>How it works</h2><p>Simple, free and skill-based.</p></div></div><div class="how"><div class="step"><div class="num">1</div><b>Pick a winner</b><span>Choose which team you think will win.</span></div><div class="step"><div class="num">2</div><b>Earn points</b><span>Correct picks can earn 100 points when results are added.</span></div><div class="step"><div class="num">3</div><b>Climb the table</b><span>Compete with friends and aim for the top spot.</span></div></div></section>
+<div class="notice">This is an early demo. Matchups and leaderboard entries are illustrative, not live fixtures or real player accounts. Predictions use free points only: no deposits, cash prizes or betting.</div>
+</main>
+<footer><div class="wrap foot"><span>© 2026 PredictionHub. Built for the CS2 community.</span><span>Fan-made project. Not affiliated with Valve or any esports organisation.</span></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='predictionhub-demo-picks-v1';
+let picks={};try{picks=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function update(){
+ let total=Object.keys(picks).length;document.getElementById('points').textContent='0';
+ document.querySelectorAll('.match').forEach(card=>{
+  const id=card.dataset.id, choice=picks[id];card.querySelectorAll('.pick').forEach(btn=>{btn.classList.toggle('selected',btn.dataset.team===choice);btn.disabled=!!choice});
+  card.querySelector('.result').textContent=choice?`Your pick: ${choice}. Saved on this device.`:'Choose a winner to save your pick.';
+ });
+}
+document.querySelectorAll('.match .pick').forEach(btn=>btn.addEventListener('click',()=>{
+ const card=btn.closest('.match'),id=card.dataset.id;
+ if(picks[id])return;
+ picks[id]=btn.dataset.team;localStorage.setItem(KEY,JSON.stringify(picks));update();
+ toast('Prediction saved on this device. Good luck!');
+}));
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function showInfo(){toast('Demo feature: accounts and payments are not connected yet.')}
+update();
+</script>
+</body>
+</html>
